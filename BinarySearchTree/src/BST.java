@@ -17,6 +17,7 @@ public class BST {
 	public static class BSTDriver{
 		Node root;
 		
+		//Search a Node
 		public String search(int data) {
 			Node node = searchNode(root, data);
 			if(node == null) {
@@ -37,6 +38,7 @@ public class BST {
 			return searchNode(root.right, data);
 		}
 		
+		//Insert a Node
 		public void insert(int data) {
 			root = insertNode(root, data);
 		}
@@ -49,13 +51,14 @@ public class BST {
 			
 			if(root.data < data) {
 				root.right = insertNode(root.right, data);
-			}else if(root.data > data) {
+			}else if(root.data >= data) {
 				root.left = insertNode(root.left, data);
 			}
 			
 			return root;
 		}
 		
+		//Delete a Node
 		public void delete(int data) {
 			deleteNode(root, data);
 		}
@@ -91,6 +94,7 @@ public class BST {
 			return min;
 		}
 		
+		//In-order Traversal (left - root - right)
 		public void inorder() {
 			inorderTraverse(root);
 		}
@@ -102,6 +106,25 @@ public class BST {
 				inorderTraverse(root.right);
 			}
 		}
+		
+		//Height of Binary Tree
+		public int calcHeight() {
+			return findHeight(root);
+		}
+		
+		public int findHeight(Node root) {
+			if(root == null){
+	            return 0;
+	        }
+	        
+	        int ld = findHeight(root.left);
+	        int rd = findHeight(root.right);
+	        
+	        return Math.max(ld, rd) + 1;
+		}
+		
+		//Level Order Traversal (BFS)
+		
 	}
 	
 	public static void main(String[] args) {
@@ -115,7 +138,8 @@ public class BST {
 			System.out.println("2. Insert");
 			System.out.println("3. Delete");
 			System.out.println("4. Inorder");
-			System.out.println("5. Exit");
+			System.out.println("5. Print Height");
+			System.out.println("6. Exit");
 			System.out.print("Enter your choice: ");
 			choice = sc.nextInt();
 			switch(choice) {
@@ -137,8 +161,11 @@ public class BST {
 			case 4: 
 				bst.inorder();
 				break;
+			case 5:
+				bst.calcHeight();
+				break;
 			}
-		}while(choice != 5);
+		}while(choice != 6);
 		
 	}
 }
