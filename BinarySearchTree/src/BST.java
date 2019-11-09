@@ -124,7 +124,24 @@ public class BST {
 		}
 		
 		//Level Order Traversal (BFS)
+		public void LevelOrder() {
+			int h = findHeight(root);
+			for(int i = 1 ; i <= h ; i++) {
+				BFS(root, i);
+			}
+		}
 		
+		public void BFS(Node root, int i) {
+			if(root == null) {
+				return;
+			}
+			if(i == 1) {
+				 System.out.println(root.data);
+			}else if(i > 1) {
+				BFS(root.left, i - 1);
+				BFS(root.right, i - 1);
+			}
+		}
 	}
 	
 	public static void main(String[] args) {
@@ -138,8 +155,9 @@ public class BST {
 			System.out.println("2. Insert");
 			System.out.println("3. Delete");
 			System.out.println("4. Inorder");
-			System.out.println("5. Print Height");
-			System.out.println("6. Exit");
+			System.out.println("5. BFS");
+			System.out.println("6. Print Height");
+			System.out.println("7. Exit");
 			System.out.print("Enter your choice: ");
 			choice = sc.nextInt();
 			switch(choice) {
@@ -161,11 +179,14 @@ public class BST {
 			case 4: 
 				bst.inorder();
 				break;
-			case 5:
-				bst.calcHeight();
+			case 5: 
+				bst.LevelOrder();
+				break;
+			case 6:
+				System.out.println("Height: " + bst.calcHeight());
 				break;
 			}
-		}while(choice != 6);
+		}while(choice != 7);
 		
 	}
 }
